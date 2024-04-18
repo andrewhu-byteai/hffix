@@ -614,6 +614,15 @@ mostly irrelevent.
 <caption>Change Log</caption>
 
 <tr>
+<th>2024-04-18</th>
+<th>v1.4.1</th>
+<td>
+Fix for `std::basic_string_view<char>::const_iterator` not being convertible
+to `const char *` in Windows (#56)
+</td>
+</tr>
+
+<tr>
 <th>2024-02-19</th>
 <th>v1.4.0</th>
 <td>
