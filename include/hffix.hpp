@@ -741,6 +741,27 @@ public:
         *next_++ = '\x01';
     }
 
+    void push_back_header(const std::string& begin_string_version) {
+      if (body_length_) throw std::logic_error("hffix message_writer.push_back_header called twice");
+      if (buffer_end_ - next_ < 2 + begin_string_version.length() + 3 + 7) {
+        details::throw_range_error();
+      }
+      next_[0] = '8';
+      next_[1] = '=';
+      next_ += 2;
+      memcpy(next_, begin_string_version.c_str(), begin_string_version.length());
+      next_ += begin_string_version.length();
+      next_[0] = '\x01';
+      next_ += 1;
+      next_[0] = '9';
+      next_[1] = '=';
+      next_ += 2;
+      body_length_ = next_;
+      next_ += 6;
+      *next_++ = '\x01';
+    }
+
+
 #if __cplusplus >= 201703L
     /*!
      * \brief Write the _BeginString_ and _BodyLength_ fields to the buffer.
