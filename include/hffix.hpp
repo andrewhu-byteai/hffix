@@ -872,8 +872,11 @@ public:
             details::throw_range_error();
         }
         *next_++ = '=';
-        memcpy(next_, begin, end - begin);
-        next_ += (end - begin);
+        while (begin != end) {
+          *next_++ = *begin++;
+        }
+        // memcpy(next_, begin, end - begin);
+        // next_ += (end - begin);
         *next_++ = '\x01';
     }
 
